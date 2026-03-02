@@ -1,108 +1,124 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const IssueCertificate = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    student_name: "",
-    course_name: "",
-    college_name: "",
-  });
-
+  const [studentName, setStudentName] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [certificateId, setCertificateId] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
+    setMessage("");
+    setError("");
 
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/certificates/",
-        formData
+        {
+          student_name: studentName,
+          course_name: courseName,
+          certificate_id: certificateId,
+        }
       );
 
       setMessage("Certificate Issued Successfully ✅");
-      setLoading(false);
 
-      // Redirect to certificate details page
-      navigate(`/certificate/${response.data.id || response.data.certificate_id}`);
+      // Clear form
+      setStudentName("");
+      setCourseName("");
+      setCertificateId("");
 
-    } catch (error) {
-      setMessage("Failed to Issue Certificate ❌");
-      setLoading(false);
-      console.error(error);
+    } catch (err) {
+      setError("Error issuing certificate ❌");
+      console.error(err);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
 
-      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg">
-
-        <h2 className="text-3xl font-bold text-center text-indigo-700 mb-6">
+        <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">
           Issue Certificate
         </h2>
 
         {message && (
-          <p className="text-center mb-4 font-semibold text-green-600">
-            {message}
-          </p>
+          <p className="text-green-600 text-sm mb-4">{message}</p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {error && (
+          <p className="text-red-600 text-sm mb-4">{error}</p>
+        )}
 
-          <input
-            type="text"
-            name="student_name"
-            placeholder="Student Name"
-            value={formData.student_name}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
+        <form onSubmit={handleSubmit}>
 
-          <input
-            type="text"
-            name="course_name"
-            placeholder="Course Name"
-            value={formData.course_name}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
+          {/* Student Name */}
+          <div className="mb-4">
+            <label className="block mb-1 text-gray-600">
+              Student Name
+            </label>
+            <input
+              type="text"
+              value={studentName}
+              onChange={(e) => setStudentName(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+              required
+            />
+          </div>
 
-          <input
-            type="text"
-            name="college_name"
-            placeholder="College Name"
-            value={formData.college_name}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
+          {/* Course Name */}
+          <div className="mb-4">
+            <label className="block mb-1 text-gray-600">
+              Course Name
+            </label>
+            <input
+              type="text"
+              value={courseName}
+              onChange={(e) => setCourseName(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+              required
+            />
+          </div>
 
+          {/* Certificate ID */}
+          <div className="mb-6">
+            <label className="block mb-1 text-gray-600">
+              Certificate ID
+            </label>
+            <input
+              type="text"
+              value={certificateId}
+              onChange={(e) => setCertificateId(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
           <button
             type="submit"
-            disabled={loading}
-            className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-300"
+            className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700"
           >
-            {loading ? "Issuing..." : "Issue Certificate"}
+            Issue Certificate
           </button>
 
         </form>
 
-      </div>
+        {/* Back Button */}
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="mt-4 text-indigo-600 hover:underline text-sm"
+        >
+          ← Back to Dashboard
+        </button>
 
+      </div>
     </div>
   );
 };

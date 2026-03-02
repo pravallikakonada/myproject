@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DashboardBg from "../assets/dashboard-bg.jpg";
+import Loader from "../components/Loader"; // ✅ Import Loader
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -9,14 +10,15 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/certificates/")
+    axios
+      .get("http://127.0.0.1:8000/api/certificates/")
       .then((response) => {
         setCertificates(response.data);
-        setLoading(false);
+        setLoading(false); // ✅ Stop loader
       })
       .catch((error) => {
         console.error("Error fetching certificates:", error);
-        setLoading(false);
+        setLoading(false); // ✅ Stop loader even if error
       });
   }, []);
 
@@ -24,6 +26,11 @@ const Dashboard = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
+  // ✅ Show Loader while API is loading
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div
@@ -89,8 +96,41 @@ const Dashboard = () => {
         </div>
 
         {/* Certificates Table */}
-        <div className="bg-white shadow-xl rounded-xl p-6">
-          {/* Table content here */}
+        <div className="bg-white shadow-xl rounded-xl p-6 overflow-x-auto">
+          <h2 className="text-xl font-bold mb-4 text-gray-700">
+            Certificates List
+          </h2>
+
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-indigo-600 text-white">
+                <th className="p-3 text-left">ID</th>
+                <th className="p-3 text-left">Student Name</th>
+                <th className="p-3 text-left">Course</th>
+                <th className="p-3 text-left">Issue Date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {certificates.length > 0 ? (
+                certificates.map((cert) => (
+                  <tr key={cert.id} className="border-b hover:bg-gray-100">
+                    <td className="p-3">{cert.id}</td>
+                    <td className="p-3">{cert.student_name}</td>
+                    <td className="p-3">{cert.course_name}</td>
+                    <td className="p-3">{cert.issue_date}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="p-4 text-center text-gray-500">
+                    No certificates found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+
         </div>
 
       </div>

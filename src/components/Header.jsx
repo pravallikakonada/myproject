@@ -65,26 +65,22 @@ function Header() {
             Login
           </Link>
 
-          <Link
-            to="/Register"
-            className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
-          >
-            Register
-          </Link>
-
-          <Link
+         <Link
             to="/Dashboard"
             className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
           >
             Dashboard
           </Link>
-
           <Link
             to="/IssueCertificate"
             className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
           >
             IssueCertificate
           </Link>
+
+         
+
+        
 
           <Link
             to="/CertificateDetails"
@@ -137,6 +133,12 @@ function Header() {
               className="bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-purple-600 transition"
             >
               Login
+            </Link>
+              <Link
+              to="/IssueCertificate"
+              className="bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-purple-600 transition"
+            >
+              IssueCertificate
             </Link>
           </nav>
         </div>
