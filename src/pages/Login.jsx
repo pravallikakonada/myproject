@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import LoginBg from "../assets/login-bg.jpg"; // ✅ Import background image
+import LoginBg from "../assets/login-bg.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,6 +9,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  // ✅ NEW CODE ADDED
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");  // Home page ki redirect
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +32,9 @@ const Login = () => {
       );
 
       localStorage.setItem("token", response.data.token);
-      navigate("/dashboard");
+
+      // ✅ After login go to homepage
+      navigate("/");
 
     } catch (err) {
       setError("Invalid email or password");
@@ -34,12 +44,10 @@ const Login = () => {
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${LoginBg})` }}  // ✅ Background image applied
+      style={{ backgroundImage: `url(${LoginBg})` }}
     >
-      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
 
-      {/* Login Card */}
       <div className="relative z-10 bg-white p-8 rounded-xl shadow-lg w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">
           Admin Login

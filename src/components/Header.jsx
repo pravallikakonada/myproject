@@ -77,6 +77,13 @@ function Header() {
           >
             IssueCertificate
           </Link>
+          <Link
+            to="/VerifyCertifiate"
+            className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
+          >
+          VerifyCertifiate
+
+          </Link>
 
          
 
@@ -139,6 +146,12 @@ function Header() {
               className="bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-purple-600 transition"
             >
               IssueCertificate
+            </Link>
+              <Link
+              to="/VerifyCertificate"
+              className="bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-purple-600 transition"
+            >
+              VerifyCertificate
             </Link>
           </nav>
         </div>

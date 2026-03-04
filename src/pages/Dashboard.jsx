@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DashboardBg from "../assets/dashboard-bg.jpg";
-import Loader from "../components/Loader"; // ✅ Import Loader
+import Loader from "../components/Loader";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -14,11 +14,11 @@ const Dashboard = () => {
       .get("http://127.0.0.1:8000/api/certificates/")
       .then((response) => {
         setCertificates(response.data);
-        setLoading(false); // ✅ Stop loader
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching certificates:", error);
-        setLoading(false); // ✅ Stop loader even if error
+        setLoading(false);
       });
   }, []);
 
@@ -27,7 +27,6 @@ const Dashboard = () => {
     navigate("/login");
   };
 
-  // ✅ Show Loader while API is loading
   if (loading) {
     return <Loader />;
   }
@@ -37,13 +36,11 @@ const Dashboard = () => {
       className="min-h-screen p-6 bg-cover bg-center bg-no-repeat relative"
       style={{ backgroundImage: `url(${DashboardBg})` }}
     >
-      {/* Dark Overlay */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
 
-      {/* Content */}
       <div className="relative z-10">
-
-        {/* Header Section */}
+        {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-indigo-700">
             Admin Dashboard
@@ -60,6 +57,7 @@ const Dashboard = () => {
         {/* Stats Section */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
 
+          {/* Total Certificates */}
           <div className="bg-white shadow-lg p-6 rounded-xl text-center">
             <h2 className="text-xl font-semibold text-gray-600">
               Total Certificates
@@ -69,6 +67,7 @@ const Dashboard = () => {
             </p>
           </div>
 
+          {/* Issue Certificate */}
           <div className="bg-white shadow-lg p-6 rounded-xl text-center">
             <h2 className="text-xl font-semibold text-gray-600">
               Issue Certificate
@@ -81,6 +80,7 @@ const Dashboard = () => {
             </button>
           </div>
 
+          {/* Verify Certificate */}
           <div className="bg-white shadow-lg p-6 rounded-xl text-center">
             <h2 className="text-xl font-semibold text-gray-600">
               Verify Certificate
@@ -130,7 +130,6 @@ const Dashboard = () => {
               )}
             </tbody>
           </table>
-
         </div>
 
       </div>
