@@ -12,14 +12,10 @@ function Header() {
         backgroundImage: `url(${HeaderBg})`,
       }}
     >
-      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black opacity-60"></div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        
-        {/* Logo */}
         <Link to="/" className="flex items-center space-x-3">
-          
           <div className="bg-white p-2 rounded-xl shadow-md">
             <svg
               className="w-8 h-8 text-indigo-600"
@@ -52,52 +48,45 @@ function Header() {
           </div>
         </Link>
 
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center space-x-8 font-medium text-white">
+        <nav className="hidden md:flex items-center space-x-4 font-medium text-white">
           <Link to="/" className="hover:text-yellow-300 transition">
             Home
           </Link>
 
           <Link
             to="/login"
-            className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
+            className="bg-white text-indigo-600 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
           >
             Login
           </Link>
 
-         <Link
-            to="/Dashboard"
-            className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
+          <Link
+            to="/issue-certificate"
+            className="bg-white text-indigo-600 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
+          >
+            Issue Certificate
+          </Link>
+
+          <Link
+            to="/verify-certificate"
+            className="bg-white text-indigo-600 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
+          >
+            Verify Certificate
+          </Link>
+
+          {/* 🔥 Courses hidden */}
+          <Link to="/courses" className="hidden">
+            Courses
+          </Link>
+
+          <Link
+            to="/dashboard"
+            className="bg-white text-indigo-600 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
           >
             Dashboard
           </Link>
-          <Link
-            to="/IssueCertificate"
-            className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
-          >
-            IssueCertificate
-          </Link>
-          <Link
-            to="/VerifyCertifiate"
-            className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
-          >
-          VerifyCertifiate
-
-          </Link>
-
-         
-
-        
-
-          <Link
-            to="/CertificateDetails"
-            className="bg-white text-indigo-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-black transition duration-300 shadow-md"
-          >
-            CertificateDetails
-          </Link>
         </nav>
 
-        {/* Mobile Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-white focus:outline-none"
@@ -127,7 +116,6 @@ function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-white shadow-lg">
           <nav className="flex flex-col space-y-4 px-6 py-6 font-medium text-gray-700">
@@ -141,17 +129,26 @@ function Header() {
             >
               Login
             </Link>
-              <Link
-              to="/IssueCertificate"
+
+            <Link
+              to="/issue-certificate"
               className="bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-purple-600 transition"
             >
-              IssueCertificate
+              Issue Certificate
             </Link>
-              <Link
-              to="/VerifyCertificate"
+
+            <Link
+              to="/verify-certificate"
               className="bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-purple-600 transition"
             >
-              VerifyCertificate
+              Verify Certificate
+            </Link>
+
+            <Link
+              to="/dashboard"
+              className="bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-purple-600 transition"
+            >
+              Dashboard
             </Link>
           </nav>
         </div>
